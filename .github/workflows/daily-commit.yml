@@ -2,29 +2,22 @@ name: Daily Commit Workflow
 
 on:
   schedule:
-    # Cron syntax: Runs every day at 12:00 PM (UTC)
-    - cron: '0 12 * * *'
-  workflow_dispatch:  # This line enables manual trigger
+    - cron: '0 0 * * *'  # This runs at midnight UTC every day
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
 
 jobs:
   daily_commit:
     runs-on: ubuntu-latest
-
+    
     steps:
-      # Step 1: Checkout the code from the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up Git
-      - name: Set up Git
+      - name: Create commit with email 23f1001788@ds.study.iitm.ac.in
         run: |
-          git config --global user.name "DevSync Bot"
+          echo "Daily commit on $(date)" > daily_commit.txt
           git config --global user.email "23f1001788@ds.study.iitm.ac.in"
-
-      # Step 3: Create an empty commit with a message
-      - name: Create a commit
-        run: |
-          echo "Automated daily commit" > daily_update.txt
-          git add daily_update.txt
-          git commit -m "Daily automated commit by 23f1001788@ds.study.iitm.ac.in"
-          git push
+          git config --global user.name "DevSync Automation"
+          git add daily_commit.txt
+          git commit -m "Automated daily commit"
+          git push origin main  # Ensure this pushes to the correct branch
