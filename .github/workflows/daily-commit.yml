@@ -20,11 +20,11 @@ jobs:
           git config --global user.name "DevSync Automation"
           git add daily_commit.txt
           git commit -m "Automated daily commit"
-          
+
       - name: Set remote URL and push changes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          # Ensure the remote URL is updated with the PAT
+          # Use the GH_TOKEN for authentication and push changes
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
           git push origin main  # Ensure this pushes to the correct branch
