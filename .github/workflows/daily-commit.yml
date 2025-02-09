@@ -4,6 +4,7 @@ on:
   schedule:
     # Cron syntax: Runs every day at 12:00 PM (UTC)
     - cron: '0 12 * * *'
+  workflow_dispatch:  # This line enables manual trigger
 
 jobs:
   daily_commit:
